@@ -31,9 +31,8 @@ import {
 } from 'lucide-react';
 
 /* ---------------------------------------------------------------
-   Small helper: reveals a section with a fade/slide-up once it
-   scrolls into view. Pure IntersectionObserver, no dependencies,
-   respects prefers-reduced-motion via CSS.
+   Reveal-on-scroll: fades/slides a section in once visible.
+   Pure IntersectionObserver, respects prefers-reduced-motion (CSS).
 ---------------------------------------------------------------- */
 function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
   const ref = useRef(null);
@@ -62,6 +61,77 @@ function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
   );
 }
 
+/* ---------------------------------------------------------------
+   CountUp: animates the leading number inside a stat string
+   ("500+", "10M+", "600 MDL") once it scrolls into view.
+   Falls back to a plain reveal for non-numeric values ("24-48ч").
+---------------------------------------------------------------- */
+function CountUp({ value, duration = 1200 }) {
+  const ref = useRef(null);
+  const [display, setDisplay] = useState(null);
+
+  useEffect(() => {
+    const match = /^(\d+)(.*)$/.exec(value);
+    if (!match) {
+      setDisplay(value);
+      return undefined;
+    }
+    const target = parseInt(match[1], 10);
+    const suffix = match[2];
+    const node = ref.current;
+    if (!node) return undefined;
+
+    let started = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          const start = performance.now();
+          const tick = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - (1 - progress) * (1 - progress);
+            setDisplay(Math.round(eased * target) + suffix);
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(node);
+    setDisplay('0' + suffix);
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  return <span ref={ref}>{display ?? value}</span>;
+}
+
+/* ---------------------------------------------------------------
+   Thin gradient bar at the very top tracking scroll progress.
+---------------------------------------------------------------- */
+function ScrollProgress() {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        setWidth(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return <div className="scroll-progress" style={{ width: `${width}%` }} />;
+}
+
 const PHONE_NUMBERS = {
   alex: '+37378337228',
   stan: '+37376596941',
@@ -69,7 +139,7 @@ const PHONE_NUMBERS = {
 
 export default function App({ lang: propLang, theme: propTheme }) {
   const [lang, setLang] = useState(propLang || 'ru');
-  const [theme, setTheme] = useState(propTheme || 'dark');
+  const [theme, setTheme] = useState(propTheme || 'light');
   const t = translations[lang] || translations.ru;
 
   useEffect(() => {
@@ -238,6 +308,17 @@ export default function App({ lang: propLang, theme: propTheme }) {
     { title: t.whyUs.reason4Title, desc: t.whyUs.reason4Desc },
   ];
 
+  const marqueeItems = [
+    t.hero.stat1Number + ' ' + t.hero.stat1Label,
+    t.hero.stat2Number + ' ' + t.hero.stat2Label,
+    t.hero.stat3Number + ' ' + t.hero.stat3Label,
+    t.hero.stat4Number + ' ' + t.hero.stat4Label,
+    t.testimonials.t1Name,
+    t.testimonials.t2Name,
+    t.testimonials.t3Name,
+    t.urgency.badge,
+  ];
+
   const initials = (name) =>
     name
       .split(' ')
@@ -249,6 +330,8 @@ export default function App({ lang: propLang, theme: propTheme }) {
 
   return (
     <div className="app">
+      <ScrollProgress />
+
       {/* ---------------- Urgency bar ---------------- */}
       <div className="urgency-bar">
         <MapPin size={14} />
@@ -258,7 +341,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         <a href="#contacts">{t.urgency.btn}</a>
       </div>
 
-      {/* ---------------- Header ---------------- */}
+      {/* ---------------- Header: floating glass pill nav ---------------- */}
       <header className="site-header">
         <div className="header-inner">
           <a href="#top" className="logo">
@@ -334,7 +417,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
               </span>
               <h1 className="hero-title">
                 {t.hero.title}
-                <span className="accent-italic">{t.hero.titleHighlight}</span>
+                <span className="accent-italic gradient-text">{t.hero.titleHighlight}</span>
               </h1>
               <p className="hero-subtitle">{t.hero.subtitle}</p>
 
@@ -399,12 +482,23 @@ export default function App({ lang: propLang, theme: propTheme }) {
               [t.hero.stat4Number, t.hero.stat4Label],
             ].map(([num, label]) => (
               <Reveal as="div" className="stat-box" key={label}>
-                <div className="num">{num}</div>
+                <div className="num"><CountUp value={num} /></div>
                 <div className="label">{label}</div>
               </Reveal>
             ))}
           </div>
         </section>
+
+        {/* ---------------- Marquee trust strip ---------------- */}
+        <div className="marquee-wrap" aria-hidden="true">
+          <div className="marquee-track">
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <span key={i}>
+                <Sparkles size={13} /> {item}
+              </span>
+            ))}
+          </div>
+        </div>
 
         {/* ---------------- Price banner ---------------- */}
         <section className="price-banner">
@@ -448,7 +542,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         </section>
 
         {/* ---------------- Before / After ---------------- */}
-        <section className="section" style={{ background: 'var(--bg-soft)' }}>
+        <section className="section">
           <div className="section-inner">
             <Reveal className="section-head">
               <span className="eyebrow">{t.beforeAfter.badge}</span>
@@ -488,7 +582,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
             <Reveal className="calc-card">
               <div>
                 <div className="calc-slider-row">
-                  <label htmlFor="videoCount" style={{ fontWeight: 600, fontSize: '0.92rem' }}>
+                  <label htmlFor="videoCount" style={{ fontWeight: 700, fontSize: '0.92rem' }}>
                     {t.calculator.videoCountLabel}
                   </label>
                   <span className="count">{videoCount}</span>
@@ -508,7 +602,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
                 )}
 
                 <div className="calc-addons">
-                  <p style={{ fontWeight: 600, fontSize: '0.85rem', marginTop: 6 }}>{t.calculator.addonsTitle}</p>
+                  <p style={{ fontWeight: 700, fontSize: '0.85rem', marginTop: 6 }}>{t.calculator.addonsTitle}</p>
                   <label className={`calc-addon ${addonPackage ? 'checked' : ''}`}>
                     <input type="checkbox" checked={addonPackage} onChange={(e) => setAddonPackage(e.target.checked)} />
                     {t.calculator.addon1}
@@ -555,7 +649,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         </section>
 
         {/* ---------------- Portfolio ---------------- */}
-        <section id="portfolio" className="section" style={{ background: 'var(--bg-soft)' }}>
+        <section id="portfolio" className="section">
           <div className="section-inner">
             <Reveal className="section-head">
               <span className="eyebrow">{t.portfolio.badge}</span>
@@ -618,7 +712,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
               <div className="modal-video-frame">
                 <span className="play-center"><Play size={22} fill="currentColor" /></span>
                 <strong>{activeModalVideo.title}</strong>
-                <span style={{ opacity: 0.75, fontSize: '0.82rem' }}>{t.modal.reelFormat} · {activeModalVideo.views}</span>
+                <span style={{ opacity: 0.85, fontSize: '0.82rem' }}>{t.modal.reelFormat} · {activeModalVideo.views}</span>
               </div>
               <div className="modal-footer">
                 <a href="#pricing" className="btn btn-gold btn-block" onClick={() => setActiveModalVideo(null)}>
@@ -667,7 +761,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         </section>
 
         {/* ---------------- Why Us ---------------- */}
-        <section className="section" style={{ background: 'var(--bg-soft)' }}>
+        <section className="section">
           <div className="section-inner">
             <Reveal className="section-head">
               <span className="eyebrow">{t.whyUs.badge}</span>
@@ -719,7 +813,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         </section>
 
         {/* ---------------- Team ---------------- */}
-        <section id="team" className="section" style={{ background: 'var(--bg-soft)' }}>
+        <section id="team" className="section">
           <div className="section-inner">
             <Reveal className="section-head">
               <span className="eyebrow">{t.team.badge}</span>
@@ -787,7 +881,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
         </section>
 
         {/* ---------------- Contacts ---------------- */}
-        <section id="contacts" className="section" style={{ background: 'var(--bg-soft)' }}>
+        <section id="contacts" className="section">
           <div className="section-inner">
             <Reveal className="section-head">
               <span className="eyebrow">{t.contactsForm.badge}</span>
@@ -799,7 +893,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
               <Reveal className="contact-form">
                 {formSubmitted ? (
                   <div className="form-success">
-                    <CheckCircle2 size={44} />
+                    <CheckCircle2 size={44} color="var(--success)" />
                     <h3>{t.contactsForm.successTitle}</h3>
                     <p style={{ color: 'var(--text-secondary)' }}>{t.contactsForm.successDesc}</p>
                   </div>
@@ -924,7 +1018,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
               <p className="footer-tagline">{t.footer.tagline}</p>
             </div>
             <div className="footer-contacts">
-              <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{t.footer.contactsHeading}</span>
+              <span style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{t.footer.contactsHeading}</span>
               <a href={`tel:${PHONE_NUMBERS.alex}`}><Phone size={14} /> {t.team.alexPhone} ({t.team.alexTitle})</a>
               <a href={`tel:${PHONE_NUMBERS.stan}`}><Phone size={14} /> {t.team.stanPhone} ({t.team.stanTitle})</a>
             </div>
