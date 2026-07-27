@@ -1,248 +1,293 @@
-/* Neuroaesthetics & Cognitive Science Visual Tokens */
-
-/* Theme 1: Editorial Dark Studio (Gestalt & High Contrast Dark Mode) */
-:root, [data-theme="dark"] {
-  --bg-main: #0b0c0f;
-  --bg-card: rgba(20, 22, 28, 0.78);
-  --bg-card-hover: rgba(28, 31, 39, 0.92);
-  --accent-primary: #e5c07b;       /* Champagne Gold 10% Accent */
-  --accent-secondary: #d4af37;
-  --accent-blue: #3b82f6;
-  --accent-gold: #f59e0b;
-  --text-main: #f4f4f6;            /* High Contrast 60% Dominant (Luminance ratio > 12:1) */
-  --text-muted: #a1a1aa;           /* Readable Muted Text (Luminance ratio > 4.8:1 WCAG AA) */
-  --border-glow: rgba(229, 192, 123, 0.28);
-  --glass-bg: rgba(16, 18, 23, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --btn-gradient: linear-gradient(135deg, #e5c07b 0%, #c59b40 100%);
-  --btn-text-color: #0b0c0f;
-  --header-bg: rgba(11, 12, 15, 0.92);
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --badge-bg: rgba(229, 192, 123, 0.1);
-}
-
-/* Theme 2: Studio Light Elegance (Human Eye Comfort Light Mode) */
-[data-theme="light"] {
-  --bg-main: #ffffff;             /* 60% Dominant Pure Background */
-  --bg-card: rgba(248, 250, 252, 0.95);
-  --bg-card-hover: rgba(241, 245, 249, 1);
-  --accent-primary: #0f172a;       /* Deep Charcoal 10% Accent */
-  --accent-secondary: #2563eb;
-  --accent-blue: #2563eb;
-  --accent-gold: #d97706;
-  --text-main: #0f172a;            /* Luminance ratio > 14:1 */
-  --text-muted: #475569;           /* Luminance ratio > 5.5:1 WCAG AA */
-  --border-glow: rgba(37, 99, 235, 0.25);
-  --glass-bg: rgba(248, 250, 252, 0.92);
-  --glass-border: rgba(15, 23, 42, 0.12);
-  --btn-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  --btn-text-color: #ffffff;
-  --header-bg: rgba(255, 255, 255, 0.94);
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  --badge-bg: rgba(15, 23, 42, 0.06);
-}
+/* ============================================================
+   VIRALIS Media Studio — Design Tokens
+   Editorial-premium visual language for a video/SMM studio.
+   Typefaces already loaded in index.html: Playfair Display,
+   Syne, Outfit, Montserrat.
+   ============================================================ */
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+html {
   scroll-behavior: smooth;
 }
 
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
+/* ---------- Theme: Dark (default, "Editorial Noir") ---------- */
+:root,
+[data-theme='dark'] {
+  --bg-main: #09090b;
+  --bg-elevated: #111114;
+  --bg-card: rgba(255, 255, 255, 0.035);
+  --bg-card-hover: rgba(255, 255, 255, 0.065);
+  --bg-soft: rgba(255, 255, 255, 0.02);
+
+  --accent: #e6c17d;
+  --accent-strong: #f0d094;
+  --accent-dim: rgba(230, 193, 125, 0.14);
+  --accent-gradient: linear-gradient(135deg, #f0d094 0%, #cf9d47 100%);
+  --on-accent: #14100a;
+
+  --success: #55d18a;
+  --danger: #f2685f;
+
+  --text-primary: #f6f5f2;
+  --text-secondary: #a3a1ab;
+  --text-faint: #706f78;
+
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --header-bg: rgba(9, 9, 11, 0.82);
+  --shadow-card: 0 20px 50px -20px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 16px 40px -14px rgba(230, 193, 125, 0.45);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  color-scheme: dark;
+}
+
+/* ---------- Theme: Light ("Studio Daylight") ---------- */
+[data-theme='light'] {
+  --bg-main: #faf8f4;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fdfbf6;
+  --bg-soft: rgba(17, 17, 20, 0.02);
+
+  --accent: #b3812c;
+  --accent-strong: #92671f;
+  --accent-dim: rgba(179, 129, 44, 0.1);
+  --accent-gradient: linear-gradient(135deg, #c99a45 0%, #a3701f 100%);
+  --on-accent: #ffffff;
+
+  --success: #1a9a5c;
+  --danger: #d8433a;
+
+  --text-primary: #17171a;
+  --text-secondary: #5c5b64;
+  --text-faint: #8b8a92;
+
+  --border: rgba(17, 17, 20, 0.09);
+  --border-strong: rgba(17, 17, 20, 0.16);
+
+  --header-bg: rgba(250, 248, 244, 0.86);
+  --shadow-card: 0 20px 44px -22px rgba(30, 25, 10, 0.18);
+  --shadow-accent: 0 16px 36px -16px rgba(179, 129, 44, 0.35);
+
+  color-scheme: light;
 }
 
 body {
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Outfit', 'Montserrat', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: hidden;
 }
 
-/* Typography Hierarchy & Eye-Comfort Rules */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-main);
-  letter-spacing: -0.02em;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
 }
 
-p, span, label, input, textarea, select {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
+p {
+  margin: 0;
 }
 
-/* Custom Scrollbar */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-main);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
-  border-radius: 4px;
+  background: var(--border-strong);
+  border-radius: 10px;
 }
 
-/* Gestalt Law of Common Region: Cards & Panels */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  max-width: 100%;
-}
-
-.glass-panel-glow {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--card-shadow);
-  border-radius: 24px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  max-width: 100%;
-}
-
-.gradient-text {
-  color: var(--accent-primary);
-}
-
-/* Fitts' Law: Touch-Optimized Tactile Signifiers */
-.btn-primary {
-  background: var(--btn-gradient);
-  color: var(--btn-text-color);
+/* ---------- Shared utility classes ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Syne', sans-serif;
   font-weight: 700;
-  padding: 14px 28px;
-  min-height: 48px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(230, 193, 125, 0.25);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.section {
+  width: 100%;
+  padding: 96px 24px;
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.section-head {
+  max-width: 640px;
+  margin: 0 auto 56px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-head.left {
+  margin: 0 0 48px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.section-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  text-decoration: none;
-  font-size: 0.95rem;
-  max-width: 100%;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  opacity: 0.95;
-}
-
-.btn-primary:active {
-  transform: translateY(0px);
-}
-
-.btn-secondary {
-  background: rgba(0, 0, 0, 0.04);
-  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
   font-weight: 600;
-  padding: 14px 28px;
-  min-height: 48px;
-  border-radius: 50px;
-  border: 1px solid var(--glass-border);
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-decoration: none;
-  font-size: 0.95rem;
-  max-width: 100%;
+  font-size: 0.96rem;
+  padding: 15px 26px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
 }
 
-.btn-secondary:hover {
-  background: rgba(0, 0, 0, 0.08);
-  border-color: var(--accent-primary);
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-gold {
+  background: var(--accent-gradient);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 46px -14px rgba(230, 193, 125, 0.55);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
   transform: translateY(-2px);
 }
 
 .btn-whatsapp {
   background: #25d366;
-  color: #ffffff;
-  font-weight: 700;
-  padding: 14px 28px;
-  min-height: 48px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-decoration: none;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.28);
-  font-size: 0.95rem;
-  max-width: 100%;
+  color: #06280f;
 }
 
 .btn-whatsapp:hover {
   transform: translateY(-2px);
-  background: #20bd5a;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 16px 34px -14px rgba(37, 211, 102, 0.55);
 }
 
-/* Gestalt Law of Similarity: Badges */
-.badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 50px;
-  background: var(--badge-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--accent-primary);
+.btn-block {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 10px 18px;
   font-size: 0.85rem;
-  font-weight: 600;
-  max-width: 100%;
 }
 
-/* Fitts' Law: Fixed Bottom Action Bar on Mobile */
-.mobile-sticky-bar {
-  display: none;
+/* Reveal-on-scroll (progressive enhancement, no layout shift if JS disabled) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (max-width: 768px) {
-  .mobile-sticky-bar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: var(--header-bg);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid var(--glass-border);
-    padding: 10px 12px;
-    gap: 8px;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
-  .mobile-sticky-bar a {
-    flex: 1;
-    text-align: center;
-    justify-content: center;
-    padding: 10px 8px;
-    font-size: 0.8rem;
-    min-height: 46px;
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 64px 18px;
+  }
+  .section-head {
+    margin-bottom: 36px;
   }
 }
