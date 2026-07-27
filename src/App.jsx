@@ -332,15 +332,6 @@ export default function App({ lang: propLang, theme: propTheme }) {
     <div className="app">
       <ScrollProgress />
 
-      {/* ---------------- Urgency bar ---------------- */}
-      <div className="urgency-bar">
-        <MapPin size={14} />
-        <span>{t.urgency.text}</span>
-        <span className="pill">{t.urgency.slots}</span>
-        <span>{t.urgency.textEnd}</span>
-        <a href="#contacts">{t.urgency.btn}</a>
-      </div>
-
       {/* ---------------- Header: floating glass pill nav ---------------- */}
       <header className="site-header">
         <div className="header-inner">
