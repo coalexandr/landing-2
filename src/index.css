@@ -33,7 +33,7 @@ html {
   --cyan: #22d3ee;
 
   --brand-gradient: linear-gradient(120deg, #7c5cfc 0%, #ff5a8a 55%, #ffa83e 100%);
-  --cta-gradient: linear-gradient(120deg, #c62839 0%, #cf351f 50%, #c2410c 100%);
+  --cta-gradient: linear-gradient(120deg, #ff5a5f 0%, #ff7a4d 50%, #ffa83e 100%);
   --violet-gradient: linear-gradient(135deg, #8b6cff 0%, #5b3df5 100%);
   --on-accent: #ffffff;
 
