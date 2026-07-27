@@ -164,6 +164,38 @@ export default function App({ lang: propLang, theme: propTheme }) {
     document.documentElement.setAttribute('lang', lang === 'ro' ? 'ro' : 'ru');
   }, [lang]);
 
+  // ---- Logo A/B test selector (temporary testing control) ----
+  const [logoChoice, setLogoChoice] = useState(() => {
+    if (typeof window === 'undefined') return 'default';
+    return window.localStorage.getItem('viralis_logo_choice') || 'default';
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem('viralis_logo_choice', logoChoice);
+  }, [logoChoice]);
+
+  const renderLogo = () => {
+    if (logoChoice === 'option1') {
+      return (
+        <>
+          <img src="/assets/logo-option1.png" alt="VIRALIS" className="logo-img logo-img-icon" />
+          VIRALIS
+        </>
+      );
+    }
+    if (logoChoice === 'option2') {
+      return <img src="/assets/logo-option2.png" alt="VIRALIS" className="logo-img logo-img-full" />;
+    }
+    return (
+      <>
+        <span className="logo-mark">
+          <Film size={18} />
+        </span>
+        VIRALIS
+      </>
+    );
+  };
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // ---- Calculator state ----
@@ -342,11 +374,14 @@ export default function App({ lang: propLang, theme: propTheme }) {
       <header className="site-header">
         <div className="header-inner">
           <a href="#top" className="logo">
-            <span className="logo-mark">
-              <Film size={18} />
-            </span>
-            VIRALIS
+            {renderLogo()}
           </a>
+
+          <div className="logo-ab-switch" title="Temporary: A/B test the new logo options">
+            <button type="button" className={logoChoice === 'default' ? 'active' : ''} onClick={() => setLogoChoice('default')}>0</button>
+            <button type="button" className={logoChoice === 'option1' ? 'active' : ''} onClick={() => setLogoChoice('option1')}>A</button>
+            <button type="button" className={logoChoice === 'option2' ? 'active' : ''} onClick={() => setLogoChoice('option2')}>B</button>
+          </div>
 
           <nav className="main-nav">
             <a href="#services">{t.nav.services}</a>
@@ -1009,8 +1044,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
           <div className="footer-top">
             <div>
               <span className="logo">
-                <span className="logo-mark"><Film size={18} /></span>
-                VIRALIS
+                {renderLogo()}
               </span>
               <p className="footer-tagline">{t.footer.tagline}</p>
             </div>
