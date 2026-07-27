@@ -1,0 +1,248 @@
+/* Neuroaesthetics & Cognitive Science Visual Tokens */
+
+/* Theme 1: Editorial Dark Studio (Gestalt & High Contrast Dark Mode) */
+:root, [data-theme="dark"] {
+  --bg-main: #0b0c0f;
+  --bg-card: rgba(20, 22, 28, 0.78);
+  --bg-card-hover: rgba(28, 31, 39, 0.92);
+  --accent-primary: #e5c07b;       /* Champagne Gold 10% Accent */
+  --accent-secondary: #d4af37;
+  --accent-blue: #3b82f6;
+  --accent-gold: #f59e0b;
+  --text-main: #f4f4f6;            /* High Contrast 60% Dominant (Luminance ratio > 12:1) */
+  --text-muted: #a1a1aa;           /* Readable Muted Text (Luminance ratio > 4.8:1 WCAG AA) */
+  --border-glow: rgba(229, 192, 123, 0.28);
+  --glass-bg: rgba(16, 18, 23, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --btn-gradient: linear-gradient(135deg, #e5c07b 0%, #c59b40 100%);
+  --btn-text-color: #0b0c0f;
+  --header-bg: rgba(11, 12, 15, 0.92);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --badge-bg: rgba(229, 192, 123, 0.1);
+}
+
+/* Theme 2: Studio Light Elegance (Human Eye Comfort Light Mode) */
+[data-theme="light"] {
+  --bg-main: #ffffff;             /* 60% Dominant Pure Background */
+  --bg-card: rgba(248, 250, 252, 0.95);
+  --bg-card-hover: rgba(241, 245, 249, 1);
+  --accent-primary: #0f172a;       /* Deep Charcoal 10% Accent */
+  --accent-secondary: #2563eb;
+  --accent-blue: #2563eb;
+  --accent-gold: #d97706;
+  --text-main: #0f172a;            /* Luminance ratio > 14:1 */
+  --text-muted: #475569;           /* Luminance ratio > 5.5:1 WCAG AA */
+  --border-glow: rgba(37, 99, 235, 0.25);
+  --glass-bg: rgba(248, 250, 252, 0.92);
+  --glass-border: rgba(15, 23, 42, 0.12);
+  --btn-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --btn-text-color: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --badge-bg: rgba(15, 23, 42, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Outfit', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Hierarchy & Eye-Comfort Rules */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+p, span, label, input, textarea, select {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+/* Gestalt Law of Common Region: Cards & Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  max-width: 100%;
+}
+
+.glass-panel-glow {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  max-width: 100%;
+}
+
+.gradient-text {
+  color: var(--accent-primary);
+}
+
+/* Fitts' Law: Touch-Optimized Tactile Signifiers */
+.btn-primary {
+  background: var(--btn-gradient);
+  color: var(--btn-text-color);
+  font-weight: 700;
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  text-decoration: none;
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
+}
+
+.btn-primary:active {
+  transform: translateY(0px);
+}
+
+.btn-secondary {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.28);
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  background: #20bd5a;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+/* Gestalt Law of Similarity: Badges */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: var(--badge-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--accent-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  max-width: 100%;
+}
+
+/* Fitts' Law: Fixed Bottom Action Bar on Mobile */
+.mobile-sticky-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-sticky-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--glass-border);
+    padding: 10px 12px;
+    gap: 8px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  }
+  .mobile-sticky-bar a {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    padding: 10px 8px;
+    font-size: 0.8rem;
+    min-height: 46px;
+  }
+}
