@@ -479,7 +479,7 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: var(--accent-dim, var(--violet));
+  background: var(--brand-gradient);
   color: #fff;
   display: flex;
   align-items: center;
