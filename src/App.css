@@ -90,6 +90,50 @@
   flex-shrink: 0;
 }
 
+.logo-img {
+  display: block;
+}
+
+.logo-img-icon {
+  height: 32px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.logo-img-full {
+  height: 40px;
+  width: auto;
+}
+
+/* Temporary logo A/B test selector */
+.logo-ab-switch {
+  display: flex;
+  gap: 3px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+
+.logo-ab-switch button {
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 0.7rem;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-ab-switch button.active {
+  background: var(--brand-gradient);
+  color: #fff;
+}
+
 .main-nav {
   display: none;
 }
