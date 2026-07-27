@@ -186,6 +186,9 @@ export default function App({ lang: propLang, theme: propTheme }) {
     if (logoChoice === 'option2') {
       return <img src="/assets/logo-option2.png" alt="VIRALIS" className="logo-img logo-img-full" />;
     }
+    if (logoChoice === 'option3') {
+      return <img src="/assets/logo-option3.png" alt="VIRALIS" className="logo-img logo-img-wide" />;
+    }
     return (
       <>
         <span className="logo-mark">
@@ -381,6 +384,7 @@ export default function App({ lang: propLang, theme: propTheme }) {
             <button type="button" className={logoChoice === 'default' ? 'active' : ''} onClick={() => setLogoChoice('default')}>0</button>
             <button type="button" className={logoChoice === 'option1' ? 'active' : ''} onClick={() => setLogoChoice('option1')}>A</button>
             <button type="button" className={logoChoice === 'option2' ? 'active' : ''} onClick={() => setLogoChoice('option2')}>B</button>
+            <button type="button" className={logoChoice === 'option3' ? 'active' : ''} onClick={() => setLogoChoice('option3')}>C</button>
           </div>
 
           <nav className="main-nav">
