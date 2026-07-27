@@ -479,7 +479,7 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: var(--brand-gradient);
+  background: var(--accent-dim, var(--violet));
   color: #fff;
   display: flex;
   align-items: center;
@@ -570,7 +570,7 @@
   box-shadow: var(--shadow-card);
 }
 
-.price-banner-copy h3 {
+.price-banner-copy h2 {
   font-size: 1.55rem;
   margin-bottom: 6px;
 }

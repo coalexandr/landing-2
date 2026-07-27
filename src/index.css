@@ -33,7 +33,7 @@ html {
   --cyan: #22d3ee;
 
   --brand-gradient: linear-gradient(120deg, #7c5cfc 0%, #ff5a8a 55%, #ffa83e 100%);
-  --cta-gradient: linear-gradient(120deg, #ff6b6b 0%, #ff5a5f 45%, #ff9a44 100%);
+  --cta-gradient: linear-gradient(120deg, #c62839 0%, #cf351f 50%, #c2410c 100%);
   --violet-gradient: linear-gradient(135deg, #8b6cff 0%, #5b3df5 100%);
   --on-accent: #ffffff;
 
@@ -42,7 +42,7 @@ html {
 
   --text-primary: #15122a;
   --text-secondary: #5c5872;
-  --text-faint: #8d89a3;
+  --text-faint: #726d87;
 
   --border: rgba(21, 18, 42, 0.08);
   --border-strong: rgba(21, 18, 42, 0.14);
@@ -263,6 +263,7 @@ img, svg {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  min-height: 48px;
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
   font-size: 0.98rem;
@@ -328,6 +329,7 @@ img, svg {
 .btn-sm {
   padding: 10px 18px;
   font-size: 0.85rem;
+  min-height: 44px;
 }
 
 /* Reveal-on-scroll */
